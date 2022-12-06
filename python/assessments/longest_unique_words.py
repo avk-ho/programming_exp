@@ -5,7 +5,7 @@ def get_n_longest_unique_words(words, n):
     # print(n)
     valid_words = []
     for word in words:
-        if words.count(word) > 1:
+        if words.count(word) > 1: #O(len(words))T
             continue
     
         sortByLength(valid_words, word)
@@ -33,3 +33,5 @@ def sortByLength(lst, word):
     else:
         sortByLength(lst, word)
         lst.append(longest_word)
+
+# in operator is also O(n)T
