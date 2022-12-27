@@ -15,6 +15,7 @@ def flatten_lists(func):
 
     return wrapper
 
+
 def convert_strings_to_ints(func):
     def wrapper(*args, **kwargs):
         new_args = []
@@ -30,6 +31,7 @@ def convert_strings_to_ints(func):
 
     return wrapper
 
+
 def filter_integers(func):
     def wrapper(*args, **kwargs):
         new_args = []
@@ -42,11 +44,13 @@ def filter_integers(func):
 
     return wrapper
 
+
 @flatten_lists
 @convert_strings_to_ints
 @filter_integers
 def integer_sum(*args):
     return sum(args)
+
 
 args = ["1", "2", -0.9, 4, [5, "hi", "3"]]
 
