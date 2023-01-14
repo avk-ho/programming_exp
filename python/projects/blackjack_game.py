@@ -24,10 +24,10 @@ class Blackjack():
     def play(self):
         start_game = input(f"You are starting with ${self.player_money}. Would you like to play a hand (y/n)? ")
 
-        if start_game != "y":
+        if start_game == "n":
             print(f"You stopped with ${self.player_money}.")
             self.game_over = True
-        else:
+        elif start_game == "y":
             self.bet()
             self.deal_hands()
 
@@ -89,6 +89,8 @@ class Blackjack():
                     print(f"The dealer wins, you lose ${self.current_bet} :(")
                 
             self.reset()
+        else:
+            print("Invalid input.")
 
 
     # sets the current bet value after receiving a valid input
