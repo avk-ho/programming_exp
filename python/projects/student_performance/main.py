@@ -14,18 +14,16 @@
 import json
 import os
 
-
 NUM_STUDENTS = 1000
 SUBJECTS = ["math", "science", "history", "english", "geography"]
-DIRECTORY = "\students\\"
+DIRECTORY = "students"
 
 def load_report_card(directory, student_number):
     base_path = os.path.dirname(os.path.abspath(__file__))
     # print(base_path)
     file_path = os.path.join(directory, f"{student_number}.json")
     # print(file_path)
-    # path = os.path.join(base_path, file_path)
-    path = base_path + file_path
+    path = os.path.join(base_path, file_path)
     # print(path)
 
     try:
