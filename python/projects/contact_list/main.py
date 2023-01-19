@@ -8,13 +8,12 @@
 # contact:
 # First Name: str
 # Last Name: str
-# Mobile Phone number: int (opt)
-# Home Phone number: int (opt)
-# Email address: str (opt)
-# Home address: str (opt)
+# Mobile phone number: int (opt)
+# Home phone number: int (opt)
+# Email: str (opt)
+# Address: str (opt)
 
 import json
-
 
 CONTACT_FILE_PATH = "contacts.json"
 
@@ -71,6 +70,7 @@ def verify_phone_number(phone_num):
 
     return valid and stripped_num.isdecimal() and len(stripped_num) == 10
 
+# recursive alphabetical sort used in add_contact
 def add_contact_sort_helper(new_contact, contacts):
     if len(contacts) == 0:
         contacts.append(new_contact)
@@ -151,6 +151,7 @@ def add_contact_sort_helper(new_contact, contacts):
                 contacts.append(prev_contact)
                 return
 
+
 def add_contact(contacts):
     first_name = input("First Name: ")
     last_name = input("Last Name: ")
@@ -202,11 +203,15 @@ def add_contact(contacts):
         print("You entered invalid information, this contact was not added.")
 
 def search_for_contact(contacts):
+    if len(contacts) < 1:
+        print("No contact registered. Please add a contact first. ")
+        return
+    
     target_first_name = input("First Name: ").lower()
     target_last_name = input("Last Name: ").lower()
     
     if target_first_name == "" and target_last_name == "":
-        print("No match found.")
+        print("Please enter at least either a First Name or a Last Name.")
         return
 
     matching_contacts = []
@@ -214,17 +219,8 @@ def search_for_contact(contacts):
         first_name = contact["First Name"].lower()
         last_name = contact["Last Name"].lower()
 
-        first_valid = False
-        last_valid = False
-        if target_first_name != "" and target_last_name != "":
-            first_valid = target_first_name in first_name
-            last_valid = target_last_name in last_name
-        elif target_first_name != "":
-            first_valid = target_first_name in first_name
-            last_valid = True
-        elif target_last_name != "":
-            first_valid = True
-            last_valid = target_last_name in last_name
+        first_valid = target_first_name in first_name
+        last_valid = target_last_name in last_name
         
         if first_valid and last_valid:
             matching_contacts.append(contact)
@@ -238,6 +234,10 @@ def search_for_contact(contacts):
 
 
 def delete_contact(contacts):
+    if len(contacts) < 1:
+        print("No contact registered. Please add a contact first. ")
+        return
+
     target_first_name = input("First Name: ")
     target_last_name = input("Last Name: ")
 
@@ -319,111 +319,3 @@ def main(contacts_path):
 
 if __name__ == "__main__":
     main(CONTACT_FILE_PATH)
-
-# Execution example
-"""
-Type a command: add
-First Name: Tim
-Last Name: Ruscica
-Mobile Phone Number: 905-676-0090
-Home Phone Number: 
-Email Address: tim@algoexpert.io
-Address: 
-Contact Added!  
-Type a command: list
-1. Tim Ruscica
-        Mobile: 905-676-0090    
-        Email: tim@algoexpert.io
-Type a command: add
-First Name: Tim
-Last Name: Ruscica
-Mobile Phone Number: 
-Home Phone Number: 
-Email Address: 
-Address: 
-A contact with this name already exists.
-You entered invalid information, this contact was not added.
-"""
-
-"""
-Welcome to your contact list!
-
-The following is a list of useable commands:      
-"add": Adds a contact.
-"delete": Deletes a contact.
-"list": Lists all contacts.
-"search": Searches for a contact by name.
-"q": Quits the program and saves the contact list.
-
-Type a command: list
-1. Tim Ruscica
-        Mobile: 905-676-0090      
-        Email: tim@algoexpert.io  
-2. Tim Jones
-        Mobile: 905-805-9999      
-        Email: tim.jones@gmail.com
-Type a command: delete
-First Name: Tim
-Last Name: 
-No contact with this name exists.
-Type a command: delete
-First Name: Tim
-Last Name: Jones
-Are you sure you would like to delete this contact (y/n)? y
-Contact deleted!
-Type a command: list
-1. Tim Ruscica
-        Mobile: 905-676-0090    
-        Email: tim@algoexpert.io
-Type a command: q
-Contacts were saved successfully. 
-"""
-
-"""
-Welcome to your contact list!
-
-The following is a list of useable commands:      
-"add": Adds a contact.
-"delete": Deletes a contact.
-"list": Lists all contacts.
-"search": Searches for a contact by name.
-"q": Quits the program and saves the contact list.
-
-Type a command: list
-1. Tim Ruscica
-        Mobile: 905-676-0090    
-        Email: tim@algoexpert.io
-Type a command: add
-First Name: Billy
-Last Name: Runes
-Mobile Phone Number: 647-890-7777
-Home Phone Number: 877-890-1234
-Email Address: billy@runes.com
-Address: 1234 Big City Dr.
-Contact Added!  
-Type a command: list
-1. Billy Runes
-        Mobile: 647-890-7777      
-        Home: 877-890-1234        
-        Email: billy@runes.com    
-        Address: 1234 Big City Dr.
-2. Tim Ruscica
-        Mobile: 905-676-0090      
-        Email: tim@algoexpert.io  
-Type a command: search
-First Name: 
-Last Name: Ru
-Found 2 matching contacts.
-1. Billy Runes
-        Mobile: 647-890-7777
-        Home: 877-890-1234
-        Email: billy@runes.com
-        Address: 1234 Big City Dr.
-2. Tim Ruscica
-        Mobile: 905-676-0090
-        Email: tim@algoexpert.io
-Type a command: test
-Unknown command.
-Type a command: q
-Contacts were saved successfully.
-"""
