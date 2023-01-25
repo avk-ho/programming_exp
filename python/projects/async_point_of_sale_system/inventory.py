@@ -1,5 +1,4 @@
-### INVENTORY CLASS PROVIDED BY THE TEMPLATE
-
+# CLASS PROVIDED WITH TEMPLATE
 import asyncio
 import random
 
